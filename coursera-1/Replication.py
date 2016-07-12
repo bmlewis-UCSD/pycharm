@@ -9,7 +9,7 @@ def PatternMatching(Text, Pattern):
         if Text[i:i + len(Pattern)] == Pattern:
             positions.append(i)
     return positions
-
+###
 def PatternCount(Pattern, Text):
     count = 0
     for i in range(len(Text)-len(Pattern)+1):
@@ -50,13 +50,21 @@ def Skew(Genome):
             skew[i] = skew[i - 1] - 1
     return skew
 ###
-
+Genome = "GCATGCTTCGCATATGCTTGAACAACG"
+def MinimumSkew(Genome):
+    positions = [] # output variable
+    d = Skew(Genome)
+    m = min((d.values()))
+    positions = [k for k in d if d[k] == m]
+    return positions
+print(MinimumSkew(Genome))
+###
 def ReverseComplement(text):
     revComp = ""
     for i in range(len(text)):
         revComp += complement(text[len(text)-i-1])
     return revComp
-
+####
 def complement(nucleotide):
     nucleotide = nucleotide.lower()
     bp = "" # output variable
@@ -69,6 +77,8 @@ def complement(nucleotide):
     elif nucleotide == "g":
         bp = "c"
     return bp
+####
 
-text = raw_input("enter text: ")
-print ReverseComplement(text)
+
+#text = raw_input("enter text: ")
+#print ReverseComplement(text)
