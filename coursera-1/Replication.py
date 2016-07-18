@@ -1,5 +1,19 @@
+def ApproximatePatternCount(Pattern, Text, d):
+    count = 0 # initialize count variable
+    for i in range(len(Text) - len(Pattern) + 1):
+        aprox = HammingDistance(Text[i:i + len(Pattern)],Pattern)
+        if aprox <= d:
+           count = count + 1
+    return count
 
 
+def ApproximatePatternMatching(Pattern, Text, d):
+    positions = [] # initializing list of positions
+    for i in range(len(Text) - len(Pattern) + 1):
+        aprox = HammingDistance(Text[i:i + len(Pattern)],Pattern)
+        if aprox <= d:
+            positions.append(i)
+    return positions
 
 
 
@@ -16,6 +30,18 @@ def PatternCount(Pattern, Text):
         if Text[i:i+len(Pattern)] == Pattern:
             count = count+1
     return count
+###
+#p = "TGACCCGTTATGCTCGAGTTCGGTCAGAGCGTCATTGCGAGTAGTCGTTTGCTTTCTCAAACTCC"
+#q = "GAGCGATTAAGCGTGACAGCCCCAGGGAACCCACAAAACGTGATCGCAGTCCATCCGATCATACA"
+def HammingDistance(p, q):
+    HD = 0
+    for i in range(0, len(p)):
+         if p[i] != q[i]:
+            HD = HD + 1
+    return HD
+#print HammingDistance(p, q)
+
+ ###
 ##inefficient version
 def SymbolArray(Genome, symbol):
     array = {}
@@ -38,6 +64,7 @@ def FasterSymbolArray(Genome, symbol):
             array[i] = array[i]+1
     return array
 ###skew array
+#Genome = "GATACACTTCCCGAGTAGGTACTG"
 def Skew(Genome):
     skew = {} #initializing the dictionary
     n = len(Genome)
@@ -50,14 +77,14 @@ def Skew(Genome):
             skew[i] = skew[i - 1] - 1
     return skew
 ###
-Genome = "GCATGCTTCGCATATGCTTGAACAACG"
 def MinimumSkew(Genome):
     positions = [] # output variable
     d = Skew(Genome)
     m = min((d.values()))
     positions = [k for k in d if d[k] == m]
     return positions
-print(MinimumSkew(Genome))
+#print(MinimumSkew(Genome))
+#print(Skew(Genome))
 ###
 def ReverseComplement(text):
     revComp = ""
@@ -80,5 +107,5 @@ def complement(nucleotide):
 ####
 
 
-#text = raw_input("enter text: ")
+        #text = raw_input("enter text: ")
 #print ReverseComplement(text)
